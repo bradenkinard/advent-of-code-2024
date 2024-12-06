@@ -10,20 +10,59 @@ def read_inputs(filename: str) -> list[list[int]]:
         return [[int(i) for i in line.split()] for line in f]
 
 
-def report_is_safe(report: list[int], min_diff: int = 1, max_diff: int = 3) -> bool:
-    sign = 1 if report[0] < report[1] else -1
-    for i in range(len(report) - 1):
-        diff = (report[i + 1] - report[i]) * sign
-        if diff < min_diff or diff > max_diff:
+def levels_safe(
+    level1: int,
+    level2: int,
+    direction: int,
+) -> bool:
+    diff = level2 - level1
+    sign = -1 if diff < 0 else 1
+    abs_diff = abs(diff)
+    if sign == direction and abs_diff >= 1 and abs_diff <= 3:
+        return True
+    return False
+
+
+def report_is_safe(report: list[int]) -> bool:
+    increasing = True
+    decreasing = True
+
+    for i in range(1, len(report)):
+        diff = report[i] - report[i - 1]
+        if abs(diff) < 1 or abs(diff) > 3:
             return False
-    return True
+        if diff > 0:
+            decreasing = False
+        if diff < 0:
+            increasing = False
+
+    return increasing or decreasing
+
+
+def report_is_safe_with_dampener(report: list[int]) -> bool:
+    if report_is_safe(report):
+        return True
+
+    for i in range(len(report)):
+        modified_report = report[:i] + report[i + 1 :]
+        if report_is_safe(modified_report):
+            return True
+
+    return False
 
 
 def solve() -> None:
     reports = read_inputs(INPUT_FILE)
     total_safe = 0
     for report in reports:
-        if report_is_safe(report, min_diff=1, max_diff=3):
+        if report_is_safe(report):
             total_safe += 1
 
     print(f"Part 1 Solution: {total_safe}")
+
+    total_safe = 0
+    for report in reports:
+        if report_is_safe_with_dampener(report):
+            total_safe += 1
+
+    print(f"Part 2 Solution: {total_safe}")

@@ -13,12 +13,12 @@ def test_decreasing_is_safe() -> None:
 
 def test_increase_too_much() -> None:
     report = [0, 1, 2, 7]
-    assert not report_is_safe(report, max_diff=3)
+    assert not report_is_safe(report)
 
 
 def test_decrease_too_much() -> None:
     report = [7, 6, 1, 0]
-    assert not report_is_safe(report, max_diff=3)
+    assert not report_is_safe(report)
 
 
 def test_unsafe_increase_then_decrease() -> None:
