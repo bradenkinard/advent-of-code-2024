@@ -10,6 +10,7 @@ dependencies = [
 
 [project.scripts]
 day-1 = "days:solve_day_1"
+day-2 = "days:solve_day_2"
 
 [tool.ruff.lint]
 select = ["ALL"]
