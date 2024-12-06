@@ -3,18 +3,19 @@ name = "advent-of-code-2024"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
+authors = [
+    { name = "Braden Kinard", email = "bkinard9@gmail.com" }
+]
 requires-python = ">=3.12"
 dependencies = [
     "pytest>=8.3.4",
 ]
 
 [project.scripts]
-day-1 = "days:solve_day_1"
-day-2 = "days:solve_day_2"
+advent-of-code-2024 = "advent_of_code_2024:main"
+day-1 = "advent_of_code_2024:solve_day_1"
+day-2 = "advent_of_code_2024:solve_day_2"
 
-[tool.ruff.lint]
-select = ["ALL"]
-ignore = ["D100", "D103", "D104", "INP001", "S101", "T201"]
-
-[tool.uv]
-package = true
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

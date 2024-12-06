@@ -1,4 +1,4 @@
-from days.day_2.solution import report_is_safe
+from advent_of_code_2024.day_2 import report_is_safe
 
 
 def test_increasing_is_safe() -> None:

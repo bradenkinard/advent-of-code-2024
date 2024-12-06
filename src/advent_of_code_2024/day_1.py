@@ -1,8 +1,9 @@
 from collections import Counter
 from pathlib import Path
 
-current_dir = Path(__file__).parent
-input_file_path = current_dir / "input.txt"
+from .constants import INPUTS_FOLDER
+
+INPUT_FILE = f"{INPUTS_FOLDER}/day_1/input.txt"
 
 
 def read_input(filename: str) -> tuple[list[int]]:
@@ -48,7 +49,7 @@ def solve_part2(list1: list[int], list2: list[int]) -> int:
 
 
 def solve() -> None:
-    list1, list2 = read_input(input_file_path)
+    list1, list2 = read_input(INPUT_FILE)
 
     solution = solve_part1(list1, list2)
     print(f"Part 1 Solution: {solution}")
