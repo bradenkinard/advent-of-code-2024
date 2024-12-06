@@ -9,11 +9,11 @@ dependencies = [
 ]
 
 [project.scripts]
-day-1 = "day_1:solve"
+day-1 = "days:solve_day_1"
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D100", "D103", "D104", "INP001", "T201"]
+ignore = ["D100", "D103", "D104", "INP001", "S101", "T201"]
 
 [tool.uv]
 package = true
