@@ -23,7 +23,7 @@ class MulExpression:
 
 
 def extract_valid_expressions(text: str) -> list[MulExpression]:
-    pattern = r"mul\(\d{1,3},\d{1,3}\)"
+    pattern = r"mul\(\d{1,3},\d{1,3}\)|do\(\)|don't\(\)"
     return re.findall(pattern, text)
 
 
@@ -35,10 +35,26 @@ def parse_expression(exp_str: str) -> MulExpression:
 def solve_part_1(text: str) -> int:
     sum = 0
     for exp in extract_valid_expressions(text):
+        if exp == "do()" or exp == "don't()":
+            continue
         sum += parse_expression(exp).evaluate()
+    return sum
+
+
+def solve_part_2(text: str) -> int:
+    sum = 0
+    do = True
+    for exp in extract_valid_expressions(text):
+        if exp == "do()":
+            do = True
+        elif exp == "don't()":
+            do = False
+        elif do:
+            sum += parse_expression(exp).evaluate()
     return sum
 
 
 def solve() -> None:
     text = read_input(INPUT_FILE)
     print(f"Part 1 Solution: {solve_part_1(text)}")
+    print(f"Part 2 Solution: {solve_part_2(text)}")
