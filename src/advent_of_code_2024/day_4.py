@@ -11,51 +11,63 @@ def read_input(filename: str) -> list[str]:
         return [line.strip() for line in f.readlines()]
 
 
-def search_right(i: int, j: int, length: int) -> str:
+def search_right(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = [i] * length
     j_idx = list(range(j, j + length))
     return list(zip(i_idx, j_idx))
 
 
-def search_left(i: int, j: int, length: int) -> str:
+def search_left(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = [i] * length
     j_idx = list(range(j, j - length, -1))
     return list(zip(i_idx, j_idx))
 
 
-def search_up(i: int, j: int, length: int) -> str:
+def search_up(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = list(range(i, i - length, -1))
     j_idx = [j] * length
     return list(zip(i_idx, j_idx))
 
 
-def search_down(i: int, j: int, length: int) -> str:
+def search_down(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = list(range(i, i + length))
     j_idx = [j] * length
     return list(zip(i_idx, j_idx))
 
 
-def search_upleft(i: int, j: int, length: int) -> str:
+def search_upleft(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = list(range(i, i - length, -1))
     j_idx = list(range(j, j - length, -1))
     return list(zip(i_idx, j_idx))
 
 
-def search_downleft(i: int, j: int, length: int) -> str:
+def search_downleft(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = list(range(i, i + length))
     j_idx = list(range(j, j - length, -1))
     return list(zip(i_idx, j_idx))
 
 
-def search_upright(i: int, j: int, length: int) -> str:
+def search_upright(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = list(range(i, i - length, -1))
     j_idx = list(range(j, j + length))
     return list(zip(i_idx, j_idx))
 
 
-def search_downright(i: int, j: int, length: int) -> str:
+def search_downright(i: int, j: int, length: int) -> list[tuple[int]]:
     i_idx = list(range(i, i + length))
     j_idx = list(range(j, j + length))
+    return list(zip(i_idx, j_idx))
+
+
+def diag_forward(i: int, j: int, length: int) -> list[tuple[int]]:
+    i_idx = list(range(i - length, i + length + 1))
+    j_idx = list(range(j - length, j + length + 1))
+    return list(zip(i_idx, j_idx))
+
+
+def diag_backward(i: int, j: int, length: int) -> list[tuple[int]]:
+    i_idx = list(range(i + length, i - length - 1, -1))
+    j_idx = list(range(j - length, j + length + 1))
     return list(zip(i_idx, j_idx))
 
 
@@ -91,6 +103,21 @@ def solve_part_1(lines: list[str]) -> int:
     return total
 
 
+def solve_part_2(lines: str) -> int:
+    total = 0
+    for i in range(len(lines)):
+        for j in range(len(lines[i])):
+            if lines[i][j] == "A":
+                substr_forward = get_substring(diag_forward(i, j, 1), lines)
+                substr_backward = get_substring(diag_backward(i, j, 1), lines)
+                if (substr_forward == "MAS" or substr_forward == "SAM") and (
+                    substr_backward == "MAS" or substr_backward == "SAM"
+                ):
+                    total += 1
+    return total
+
+
 def solve() -> None:
     text = read_input(INPUT_FILE)
     print(f"Part 1 Solution: {solve_part_1(text)}")
+    print(f"Part 2 Solution: {solve_part_2(text)}")
