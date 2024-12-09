@@ -16,6 +16,7 @@ advent-of-code-2024 = "advent_of_code_2024:main"
 day-1 = "advent_of_code_2024:solve_day_1"
 day-2 = "advent_of_code_2024:solve_day_2"
 day-3 = "advent_of_code_2024:solve_day_3"
+day-4 = "advent_of_code_2024:solve_day_4"
 
 
 [build-system]
