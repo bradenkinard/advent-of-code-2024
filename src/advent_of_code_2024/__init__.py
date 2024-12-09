@@ -1,4 +1,4 @@
-from . import day_1, day_2
+from . import day_1, day_2, day_3
 
 
 def main() -> None:
@@ -11,3 +11,7 @@ def solve_day_1() -> None:
 
 def solve_day_2() -> None:
     day_2.solve()
+
+
+def solve_day_3() -> None:
+    day_3.solve()
